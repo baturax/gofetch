@@ -15,6 +15,22 @@ func main() {
 	getSystem()
 	getKernel()
 	getMem()
+	getUptime()
+}
+
+func getUptime() {
+	h, err := host.Info()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	uptime := h.Uptime
+
+	day := uptime / 86400
+	hour := (uptime % 86400) / 3600
+	minute := (uptime % 3600) / 60
+
+	fmt.Printf("  %v days, %v hours, %v minutes\n", day, hour, minute)
 }
 
 func getMem() {
