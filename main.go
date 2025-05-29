@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os/exec"
 	"os/user"
 	"strings"
 
@@ -11,7 +12,25 @@ import (
 )
 
 func main() {
-	fmt.Println(getDistro())
+}
+
+func packages() {
+	h, _ := host.Info()
+	if h.Platform == "arch" {
+
+		out, _ := exec.Command("pacman", "-Qq").Output()
+		o := string(out[:])
+		a := len(strings.Fields(o))
+		fmt.Println(a)
+
+	} else if h.Platform == "alpine" {
+
+		out, _ := exec.Command("apk", "list", "-I").Output()
+		o := string(out[:])
+		a := len(strings.Split(o, "\n"))
+		fmt.Println(a)
+
+	}
 }
 
 func getUptime() string {
