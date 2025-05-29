@@ -7,12 +7,27 @@ import (
 	"strings"
 
 	"github.com/shirou/gopsutil/v4/host"
+	"github.com/shirou/gopsutil/v4/mem"
 )
 
 func main() {
 	getUser()
 	getSystem()
 	getKernel()
+	getMem()
+}
+
+func getMem() {
+	m, err := mem.VirtualMemory()
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	usedMem := m.Used / 1048576
+	totalMem := m.Total / 1048576
+
+	fmt.Printf("  %v / %v\n", usedMem, totalMem)
 }
 
 func getKernel() {
@@ -25,7 +40,7 @@ func getKernel() {
 	platform := h.Platform
 	kernel := h.KernelVersion
 
-	fmt.Printf("  %v %v", platform, kernel)
+	fmt.Printf("  %v %v\n", platform, kernel)
 }
 
 func getSystem() {
@@ -39,7 +54,7 @@ func getSystem() {
 	os := h.OS
 	arch := h.KernelArch
 
-	fmt.Printf(" %v %v %v\n", platform, os, arch)
+	fmt.Printf("  %v %v %v\n", platform, os, arch)
 }
 
 func getUser() {
