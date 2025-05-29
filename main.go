@@ -14,7 +14,6 @@ import (
 func main() {
 	iconLines := strings.Split(getDistro(), "\n")
 
-	// Burada sistem bilgilerini satırlara bölüyoruz
 	infoLines := []string{
 		strings.TrimSpace(getUser()),
 		strings.TrimSpace(getSystem()),
@@ -24,13 +23,11 @@ func main() {
 		strings.TrimSpace(getPackages()),
 	}
 
-	// Kaç satır olduğuna bakalım (ikon veya bilgi satırı eksikse boş satır ekle)
 	maxLines := len(iconLines)
 	if len(infoLines) > maxLines {
 		maxLines = len(infoLines)
 	}
 
-	// Eksik satır varsa boş satır ekleyelim
 	for len(iconLines) < maxLines {
 		iconLines = append(iconLines, "")
 	}
@@ -38,7 +35,6 @@ func main() {
 		infoLines = append(infoLines, "")
 	}
 
-	// Satır satır yan yana birleştirip yazdırıyoruz
 	for i := 0; i < maxLines; i++ {
 		fmt.Printf("%-20s  %s\n", iconLines[i], infoLines[i])
 	}
