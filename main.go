@@ -12,25 +12,55 @@ import (
 )
 
 func main() {
+	iconLines := strings.Split(getDistro(), "\n")
+
+	// Burada sistem bilgilerini satırlara bölüyoruz
+	infoLines := []string{
+		strings.TrimSpace(getUser()),
+		strings.TrimSpace(getSystem()),
+		strings.TrimSpace(getKernel()),
+		strings.TrimSpace(getMem()),
+		strings.TrimSpace(getUptime()),
+		strings.TrimSpace(getPackages()),
+	}
+
+	// Kaç satır olduğuna bakalım (ikon veya bilgi satırı eksikse boş satır ekle)
+	maxLines := len(iconLines)
+	if len(infoLines) > maxLines {
+		maxLines = len(infoLines)
+	}
+
+	// Eksik satır varsa boş satır ekleyelim
+	for len(iconLines) < maxLines {
+		iconLines = append(iconLines, "")
+	}
+	for len(infoLines) < maxLines {
+		infoLines = append(infoLines, "")
+	}
+
+	// Satır satır yan yana birleştirip yazdırıyoruz
+	for i := 0; i < maxLines; i++ {
+		fmt.Printf("%-20s  %s\n", iconLines[i], infoLines[i])
+	}
 }
 
-func packages() {
+func getPackages() string {
 	h, _ := host.Info()
 	if h.Platform == "arch" {
 
 		out, _ := exec.Command("pacman", "-Qq").Output()
 		o := string(out[:])
 		a := len(strings.Fields(o))
-		fmt.Println(a)
+		return fmt.Sprintln("󰏖 ",a,   "pckages (pacman)")
 
 	} else if h.Platform == "alpine" {
 
 		out, _ := exec.Command("apk", "list", "-I").Output()
 		o := string(out[:])
 		a := len(strings.Split(o, "\n"))
-		fmt.Println(a)
-
+		return fmt.Sprintln("󰏖 ",a,   "ackages (apk)")
 	}
+	return ""
 }
 
 func getUptime() string {
