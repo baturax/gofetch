@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"os/user"
 	"strings"
 
@@ -16,12 +17,13 @@ func main() {
 	fmt.Println(getSystem())
 	fmt.Println(getKernel())
 	fmt.Println(getMem())
-	fmt.Println(getPackages())
 	fmt.Println(getUptime())
+	fmt.Println(getShell())
 }
 
-func getPackages() string {
-	return ""
+func getShell() string {
+	s := os.Getenv("SHELL")
+	return fmt.Sprintf("󰲒 %v", s)
 }
 
 func getUptime() string {
