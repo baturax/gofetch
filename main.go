@@ -13,15 +13,38 @@ import (
 )
 
 func main() {
-	fmt.Println(getIcon())
-	fmt.Println(getUser())
-	fmt.Println(getSystem())
-	fmt.Println(getKernel())
-	fmt.Println(getMem())
-	fmt.Println(getUptime())
-	fmt.Println(getShell())
-	fmt.Println(getDesktop())
-	fmt.Println(getPackages())
+	fons := []string{
+		getUser(),
+		getSystem(),
+		getKernel(),
+		getMem(),
+		getUptime(),
+		getShell(),
+		getDesktop(),
+		getPackages(),
+	}
+
+	mL := len(getIcon())
+	if l := len(fons); l > mL {
+		mL = l
+	}
+
+	for i := range mL {
+		icon := ""
+		info := ""
+
+		if i < len(getIcon()) {
+			icon = getIcon()[i]
+		} else {
+			icon = "                  "
+		}
+
+		if i < len(fons) {
+			info = fons[i]
+		}
+
+		fmt.Printf("%s  %s\n", icon, info)
+	}
 }
 
 func getPackages() string {
@@ -156,55 +179,57 @@ func getDistro() string {
 	return d
 }
 
-func getIcon() string {
-	if strings.Contains(getDistro(), "arch") {
-		return `
-      /\
-     /  \
-    /    \
-   /      \
-  /   ,,   \
- /   |  |   \
-/_-''    ''-_\
-`
-	} else if strings.Contains(getDistro(), "void") {
-		return `
-    _______
- _ \______ -
-| \  ___  \ |
-| | /   \ | |
-| | \___/ | |
-| \______ \_|
- -_______\
-`
-	} else if strings.Contains(getDistro(), "alpine") {
-		return `
-      /\
-     /  \
-    / /\ \  /\
-   / /  \ \/  \
-  / /    \ \/\ \
- / / /|   \ \ \ \
-/_/ /_|    \_\ \_\
-`
-	} else if strings.Contains(getDistro(), "ubuntu") {
-		return `
-         _
-     ---(_)
-_/  ---  \
-(_) |   |
-  \  --- _/
-     ---(_)
-`
+func getIcon() []string {
+	distro := strings.ToLower(getDistro())
+	switch {
+	case strings.Contains(distro, "arch"):
+		return []string{
+			"      /\\          ",
+			"     /  \\         ",
+			"    /    \\        ",
+			"   /      \\       ",
+			"  /   ,,   \\      ",
+			" /   |  |   \\     ",
+			"/_-''    ''-_\\    ",
+		}
+	case strings.Contains(distro, "void"):
+		return []string{
+			"    _______        ",
+			" _ \\______ -      ",
+			"| \\  ___  \\ |     ",
+			"| | /   \\ | |     ",
+			"| | \\___/ | |     ",
+			"| \\______ \\_|     ",
+			" -_______\\        ",
+		}
+	case strings.Contains(distro, "alpine"):
+		return []string{
+			"      /\\          ",
+			"     /  \\         ",
+			"    / /\\ \\  /\\    ",
+			"   / /  \\ \\/  \\   ",
+			"  / /    \\ \\ /\\   ",
+			" / / /|   \\ \\ \\   ",
+			"/_/ /_|    \\_\\_\\  ",
+		}
+	case strings.Contains(distro, "ubuntu"):
+		return []string{
+			"         _        ",
+			"     ---(_)       ",
+			" _/  ---  \\       ",
+			"(_) |   |         ",
+			"  \\  --- _/       ",
+			"     ---(_)       ",
+		}
+	default:
+		return []string{
+			"    ___            ",
+			"   (.. \\          ",
+			"   (<> |           ",
+			"  //  \\ \\        ",
+			" ( |  | /|         ",
+			"_/\\ __)/_)        ",
+			"\\/-____\\/        ",
+		}
 	}
-
-	return `
-    ___
-   (.. \
-   (<> |
-  //  \ \
- ( |  | /|
-_/\ __)/_)
-\/-____\/
-`
 }
