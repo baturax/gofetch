@@ -104,32 +104,33 @@ func getDistro() string {
 
 	if strings.Contains(distro, "arch") {
 		return `
-      /\\          
-     /  \\         
-    /    \\        
-   /      \\       
-  /   ,,   \\      
- /   |  |   \\     
-/_-''    ''-_\\    
+      /\
+     /  \
+    /    \
+   /      \
+  /   ,,   \
+ /   |  |   \
+/_-''    ''-_\
 `
 	} else if strings.Contains(distro, "void") {
 		return `
-    _______      
- _ \______ -     
-| \  ___  \ |    
-| | /   \ | |    
-| | \___/ | |    
-| \______ \_|    
- -_______\       
+    _______
+ _ \______ -
+| \  ___  \ |
+| | /   \ | |
+| | \___/ | |
+| \______ \_|
+ -_______\
 `
 	} else if strings.Contains(distro, "alpine") {
 		return `
-      /\\
-     /  \\
-    / /\\ \\  /\\
-   / /  \\ \\/  \\
-  / /    \\ \\/\\ \\
- /_/ /_|    \\_\\ \\_
+      /\
+     /  \
+    / /\ \  /\
+   / /  \ \/  \
+  / /    \ \/\ \
+ / / /|   \ \ \ \
+/_/ /_|    \_\ \_\
 `
 	} else if strings.Contains(distro, "ubuntu") {
 		return `
