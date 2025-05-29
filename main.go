@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"os/user"
 	"strings"
 
@@ -20,6 +21,41 @@ func main() {
 	fmt.Println(getUptime())
 	fmt.Println(getShell())
 	fmt.Println(getDesktop())
+	getPackages()
+}
+
+func getPackages() {
+	if strings.Contains(getDistro(), "arch") {
+
+		c, _ := exec.Command("pacman", "-Qq").Output()
+		o := string(c[:])
+		b := strings.Split(o, "\n")
+		fmt.Println(len(b) - 1)
+
+	} else if strings.Contains(getDistro(), "void") {
+
+		c, _ := exec.Command("xbps-query", "-l").Output()
+		o := string(c[:])
+		b := strings.Split(o, "\n")
+		fmt.Println(len(b) - 1)
+
+	} else if strings.Contains(getDistro(), "alpine") {
+
+		c, _ := exec.Command("apk", "list", "-I").Output()
+		o := string(c[:])
+		b := strings.Split(o, "\n")
+		fmt.Println(len(b) - 1)
+
+	} else if strings.Contains(getDistro(), "ubuntu") {
+
+		c, _ := exec.Command("apt", "list", "--installed").Output()
+		o := string(c[:])
+		b := strings.Split(o, "\n")
+		fmt.Println(len(b) - 2)
+
+	} else {
+
+	}
 }
 
 func getDesktop() string {
