@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	fmt.Println(getDistro())
+	fmt.Println(getIcon())
 	fmt.Println(getUser())
 	fmt.Println(getSystem())
 	fmt.Println(getKernel())
@@ -116,10 +116,12 @@ func getUser() string {
 
 func getDistro() string {
 	h, _ := host.Info()
+	d := h.Platform
+	return d
+}
 
-	distro := h.Platform
-
-	if strings.Contains(distro, "arch") {
+func getIcon() string {
+	if strings.Contains(getDistro(), "arch") {
 		return `
       /\
      /  \
@@ -129,7 +131,7 @@ func getDistro() string {
  /   |  |   \
 /_-''    ''-_\
 `
-	} else if strings.Contains(distro, "void") {
+	} else if strings.Contains(getDistro(), "void") {
 		return `
     _______
  _ \______ -
@@ -139,7 +141,7 @@ func getDistro() string {
 | \______ \_|
  -_______\
 `
-	} else if strings.Contains(distro, "alpine") {
+	} else if strings.Contains(getDistro(), "alpine") {
 		return `
       /\
      /  \
@@ -149,7 +151,7 @@ func getDistro() string {
  / / /|   \ \ \ \
 /_/ /_|    \_\ \_\
 `
-	} else if strings.Contains(distro, "ubuntu") {
+	} else if strings.Contains(getDistro(), "ubuntu") {
 		return `
          _
      ---(_)
