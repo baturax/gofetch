@@ -26,15 +26,19 @@ func getDesktop() string {
 	s := os.Getenv("XDG_CURRENT_DESKTOP")
 	if s == "" {
 		return fmt.Sprintf("  sorry %v", s)
-	} else {
-		return fmt.Sprintf("  %v", s)
 	}
+	return fmt.Sprintf("  %v", s)
 
 }
 
 func getShell() string {
 	s := os.Getenv("SHELL")
+	if s == "" {
+		return fmt.Sprintf("󰲒 sorry %v", s)
+	}
+
 	return fmt.Sprintf("󰲒 %v", s)
+
 }
 
 func getUptime() string {
