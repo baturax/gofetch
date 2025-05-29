@@ -13,18 +13,29 @@ func main() {
 	getUser()
 }
 
-func getUser() {
-	u, err := user.Current()
+func getKernel() {
 
-	if err != nil {
-		log.Fatal(err.Error())
+}
+
+func getUser() {
+	u, uerr := user.Current()
+
+	if uerr != nil {
+		log.Fatal(uerr.Error())
+	}
+
+	h, herr := host.Info()
+
+	if herr != nil {
+		log.Fatal(herr.Error())
 	}
 
 	user := u.Username
-	fmt.Println(user)
+	hostName := h.Hostname
+	fmt.Printf("%v@%v\n", user, hostName)
 }
 
-func getSystem() {
+func getDistro() {
 	h, _ := host.Info()
 
 	distro := h.Platform
