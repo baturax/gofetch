@@ -11,14 +11,10 @@ import (
 )
 
 func main() {
-	getUser()
-	getSystem()
-	getKernel()
-	getMem()
-	getUptime()
+	fmt.Println(getDistro())
 }
 
-func getUptime() {
+func getUptime() string {
 	h, err := host.Info()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -30,10 +26,10 @@ func getUptime() {
 	hour := (uptime % 86400) / 3600
 	minute := (uptime % 3600) / 60
 
-	fmt.Printf("  %v days, %v hours, %v minutes\n", day, hour, minute)
+	return fmt.Sprintf("  %v days, %v hours, %v minutes\n", day, hour, minute)
 }
 
-func getMem() {
+func getMem() string {
 	m, err := mem.VirtualMemory()
 
 	if err != nil {
@@ -43,10 +39,10 @@ func getMem() {
 	usedMem := m.Used / 1048576
 	totalMem := m.Total / 1048576
 
-	fmt.Printf("  %v / %v\n", usedMem, totalMem)
+	return fmt.Sprintf("  %v / %v\n", usedMem, totalMem)
 }
 
-func getKernel() {
+func getKernel() string {
 	h, err := host.Info()
 
 	if err != nil {
@@ -56,10 +52,10 @@ func getKernel() {
 	platform := h.Platform
 	kernel := h.KernelVersion
 
-	fmt.Printf("  %v %v\n", platform, kernel)
+	return fmt.Sprintf("  %v %v\n", platform, kernel)
 }
 
-func getSystem() {
+func getSystem() string {
 	h, err := host.Info()
 
 	if err != nil {
@@ -70,10 +66,10 @@ func getSystem() {
 	os := h.OS
 	arch := h.KernelArch
 
-	fmt.Printf("  %v %v %v\n", platform, os, arch)
+	return fmt.Sprintf("  %v %v %v\n", platform, os, arch)
 }
 
-func getUser() {
+func getUser() string {
 	u, uerr := user.Current()
 
 	if uerr != nil {
@@ -88,29 +84,52 @@ func getUser() {
 
 	user := u.Username
 	hostName := h.Hostname
-	fmt.Printf("%v@%v\n", user, hostName)
+	return fmt.Sprintf("%v@%v\n", user, hostName)
 }
 
-func getDistro() {
+func getDistro() string {
 	h, _ := host.Info()
 
 	distro := h.Platform
 
 	if strings.Contains(distro, "arch") {
-		fmt.Println("      /\\          ")
-		fmt.Println("     /  \\         ")
-		fmt.Println("    /    \\        ")
-		fmt.Println("   /      \\       ")
-		fmt.Println("  /   ,,   \\      ")
-		fmt.Println(" /   |  |   \\     ")
-		fmt.Println("/_-''    ''-_\\    ")
+		return `
+      /\\          
+     /  \\         
+    /    \\        
+   /      \\       
+  /   ,,   \\      
+ /   |  |   \\     
+/_-''    ''-_\\    
+`
 	} else if strings.Contains(distro, "void") {
-		fmt.Println("    _______      ")
-		fmt.Println(" _ \\______ -     ")
-		fmt.Println("| \\  ___  \\ |    ")
-		fmt.Println("| | /   \\ | |    ")
-		fmt.Println("| | \\___/ | |    ")
-		fmt.Println("| \\______ \\_|    ")
-		fmt.Println(" -_______\\       ")
+		return `
+    _______      
+ _ \______ -     
+| \  ___  \ |    
+| | /   \ | |    
+| | \___/ | |    
+| \______ \_|    
+ -_______\       
+`
+	} else if strings.Contains(distro, "alpine") {
+		return `
+      /\\
+     /  \\
+    / /\\ \\  /\\
+   / /  \\ \\/  \\
+  / /    \\ \\/\\ \\
+ /_/ /_|    \\_\\ \\_
+`
 	}
+
+	return `
+	    ___
+	   (.. \
+	   (<> |
+	  //  \ \
+	 ( |  | /|
+	_/\ __)/_)
+	\/-____\/
+	`
 }
