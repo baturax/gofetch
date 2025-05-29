@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os/exec"
 	"os/user"
 	"strings"
 
@@ -12,58 +11,16 @@ import (
 )
 
 func main() {
-	iconLines := strings.Split(getDistro(), "\n")
-
-	infoLines := []string{
-		strings.TrimSpace(getUser()),
-		strings.TrimSpace(getSystem()),
-		strings.TrimSpace(getKernel()),
-		strings.TrimSpace(getMem()),
-		strings.TrimSpace(getUptime()),
-		strings.TrimSpace(getPackages()),
-	}
-
-	maxLines := len(iconLines)
-	if len(infoLines) > maxLines {
-		maxLines = len(infoLines)
-	}
-
-	for len(iconLines) < maxLines {
-		iconLines = append(iconLines, "")
-	}
-	for len(infoLines) < maxLines {
-		infoLines = append(infoLines, "")
-	}
-
-	for i := 0; i < maxLines; i++ {
-		fmt.Printf("%-20s  %s\n", iconLines[i], infoLines[i])
-	}
+	fmt.Println(getDistro())
+	fmt.Println(getUser())
+	fmt.Println(getSystem())
+	fmt.Println(getKernel())
+	fmt.Println(getMem())
+	fmt.Println(getPackages())
+	fmt.Println(getUptime())
 }
 
 func getPackages() string {
-	h, _ := host.Info()
-	if h.Platform == "arch" {
-
-		out, _ := exec.Command("pacman", "-Qq").Output()
-		o := string(out[:])
-		a := len(strings.Fields(o))
-		return fmt.Sprintln("󰏖 ", a, "packages (pacman)")
-
-	} else if h.Platform == "alpine" {
-
-		out, _ := exec.Command("apk", "list", "-I").Output()
-		o := string(out[:])
-		a := len(strings.Split(o, "\n"))
-		return fmt.Sprintln("󰏖 ", a, "packages (apk)")
-
-	} else if h.Platform == "void" {
-		out, _ := exec.Command("xbps-query", "-l").Output()
-		o := string(out[:])
-		a := len(strings.Split(o, "\n"))
-		return fmt.Sprintln("󰏖 ", a, "packages (xbps)")
-
-	}
-
 	return ""
 }
 
@@ -79,7 +36,7 @@ func getUptime() string {
 	hour := (uptime % 86400) / 3600
 	minute := (uptime % 3600) / 60
 
-	return fmt.Sprintf("  %v days, %v hours, %v minutes\n", day, hour, minute)
+	return fmt.Sprintf("  %v days, %v hours, %v minutes", day, hour, minute)
 }
 
 func getMem() string {
@@ -92,7 +49,7 @@ func getMem() string {
 	usedMem := m.Used / 1048576
 	totalMem := m.Total / 1048576
 
-	return fmt.Sprintf("  %v / %v\n", usedMem, totalMem)
+	return fmt.Sprintf("  %v / %v", usedMem, totalMem)
 }
 
 func getKernel() string {
@@ -105,7 +62,7 @@ func getKernel() string {
 	platform := h.Platform
 	kernel := h.KernelVersion
 
-	return fmt.Sprintf("  %v %v\n", platform, kernel)
+	return fmt.Sprintf("  %v %v", platform, kernel)
 }
 
 func getSystem() string {
@@ -119,7 +76,7 @@ func getSystem() string {
 	os := h.OS
 	arch := h.KernelArch
 
-	return fmt.Sprintf("  %v %v %v\n", platform, os, arch)
+	return fmt.Sprintf("  %v %v %v", platform, os, arch)
 }
 
 func getUser() string {
@@ -137,7 +94,7 @@ func getUser() string {
 
 	user := u.Username
 	hostName := h.Hostname
-	return fmt.Sprintf("%v@%v\n", user, hostName)
+	return fmt.Sprintf("%v@%v", user, hostName)
 }
 
 func getDistro() string {
@@ -174,15 +131,24 @@ func getDistro() string {
   / /    \\ \\/\\ \\
  /_/ /_|    \\_\\ \\_
 `
+	} else if strings.Contains(distro, "ubuntu") {
+		return `
+         _
+     ---(_)
+_/  ---  \
+(_) |   |
+  \  --- _/
+     ---(_)
+`
 	}
 
 	return `
-	    ___
-	   (.. \
-	   (<> |
-	  //  \ \
-	 ( |  | /|
-	_/\ __)/_)
-	\/-____\/
-	`
+    ___
+   (.. \
+   (<> |
+  //  \ \
+ ( |  | /|
+_/\ __)/_)
+\/-____\/
+`
 }
