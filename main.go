@@ -51,15 +51,23 @@ func getPackages() string {
 		out, _ := exec.Command("pacman", "-Qq").Output()
 		o := string(out[:])
 		a := len(strings.Fields(o))
-		return fmt.Sprintln("󰏖 ",a,   "pckages (pacman)")
+		return fmt.Sprintln("󰏖 ", a, "packages (pacman)")
 
 	} else if h.Platform == "alpine" {
 
 		out, _ := exec.Command("apk", "list", "-I").Output()
 		o := string(out[:])
 		a := len(strings.Split(o, "\n"))
-		return fmt.Sprintln("󰏖 ",a,   "ackages (apk)")
+		return fmt.Sprintln("󰏖 ", a, "packages (apk)")
+
+	} else if h.Platform == "void" {
+		out, _ := exec.Command("xbps-query", "-l").Output()
+		o := string(out[:])
+		a := len(strings.Split(o, "\n"))
+		return fmt.Sprintln("󰏖 ", a, "packages (xbps)")
+
 	}
+
 	return ""
 }
 
