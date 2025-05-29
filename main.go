@@ -11,10 +11,35 @@ import (
 
 func main() {
 	getUser()
+	getSystem()
+	getKernel()
 }
 
 func getKernel() {
+	h, err := host.Info()
 
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	platform := h.Platform
+	kernel := h.KernelVersion
+
+	fmt.Printf("  %v %v", platform, kernel)
+}
+
+func getSystem() {
+	h, err := host.Info()
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	platform := h.Platform
+	os := h.OS
+	arch := h.KernelArch
+
+	fmt.Printf(" %v %v %v\n", platform, os, arch)
 }
 
 func getUser() {
