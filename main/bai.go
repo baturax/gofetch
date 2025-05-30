@@ -3,10 +3,13 @@ package main
 import (
 	"baturax/mods"
 	"fmt"
+	"math/rand"
 )
 
 func main() {
 	mL := len(mods.GetIcon())
+	ri := rand.Intn(len(colors()))
+	re := colors()[ri]
 
 	if l := len(icons()); l > mL {
 		mL = l
@@ -26,8 +29,21 @@ func main() {
 			info = icons()[i]
 		}
 
-		fmt.Println(icon, info)
+		fmt.Println(re+icon, info)
+	}
 
+}
+
+func colors() []string {
+	return []string{
+		"\033[0m",
+		"\033[31m",
+		"\033[32m",
+		"\033[33m",
+		"\033[34m",
+		"\033[35m",
+		"\033[36m",
+		"\033[97m",
 	}
 }
 
