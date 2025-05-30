@@ -14,4 +14,9 @@ Ubuntu
 
 <img height="140" src="./assets/ubuntu.png"/>
 
+## Installation
 
+```bash
+cd ./main
+go build .
+```
