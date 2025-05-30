@@ -1,0 +1,26 @@
+name: Checks
+'on':
+  push:
+    branches:
+      - main
+
+jobs:
+   Build:
+     runs-on: ubuntu-latest
+
+     steps:
+       - name: Checkout-Repository
+         uses: actions/checkout@v4
+
+       - name: Setup Go
+         uses: actions/setup-go@v5.5.0
+         with:
+           go-version: "1.24.3"
+           check-latest: true
+           cache-dependency-path: |
+             mods/go.sum
+             main/go.sum
+           
+       - name: Build App
+         working-directory: main/
+         run: go build .
