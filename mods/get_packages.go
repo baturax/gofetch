@@ -8,7 +8,7 @@ import (
 )
 
 func GetPackages() string {
-	if strings.Contains(getDistro(), "arch") {
+	if strings.Contains(getDistro(), "arch") || strings.Contains(getDistro(), "cachy") {
 
 		c, _ := exec.Command("pacman", "-Qq").Output()
 		o := string(c[:])
