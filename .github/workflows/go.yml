@@ -23,4 +23,10 @@ jobs:
            
        - name: Build App
          working-directory: main/
-         run: go build .
+         run: go build -o gofetch .
+
+       - name: Upload
+         uses: actions/upload-artifact@v4
+         with:
+           name: gofetch
+           path: main/gofetch
