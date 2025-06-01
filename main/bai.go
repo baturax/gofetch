@@ -4,6 +4,7 @@ import (
 	"baturax/mods"
 	"fmt"
 	"math/rand"
+	"os"
 )
 
 func main() {
@@ -48,7 +49,8 @@ func colors() []string {
 }
 
 func icons() []string {
-	return []string{
+
+	lol := []string{
 		mods.GetUser(),
 		mods.GetSystem(),
 		mods.GetKernel(),
@@ -56,6 +58,12 @@ func icons() []string {
 		mods.GetUptime(),
 		mods.GetShell(),
 		mods.GetDesktop(),
-		mods.GetPackages(),
 	}
+
+	if os.Getenv("SHOW_PACKAGES") == "yes" {
+		lol = append(lol, mods.GetPackages())
+	}
+
+	return lol
+
 }
