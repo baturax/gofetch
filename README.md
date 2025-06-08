@@ -17,6 +17,5 @@ Ubuntu
 ## Installation
 
 ```bash
-cd ./main
 go build .
 ```
