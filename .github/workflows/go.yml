@@ -21,11 +21,10 @@ jobs:
              go.sum
            
        - name: Build App
-         working-directory: main/
          run: go build -o gofetch .
 
        - name: Upload
          uses: actions/upload-artifact@v4
          with:
            name: gofetch
-           path: main/gofetch
+           path: gofetch
