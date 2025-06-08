@@ -1,0 +1,34 @@
+package utils
+
+import (
+	"fmt"
+	"os/exec"
+	"strings"
+)
+
+func GetPackages() string {
+	d := GetDistro()
+
+	switch {
+	case strings.Contains(d, "arch"), strings.Contains(d, "cachy"):
+		return runner("pacman -Qq", "pacman")
+
+	case strings.Contains(d, "void"):
+		return runner("xbps-query", "xbps")
+
+	case strings.Contains(d, "alpine"):
+		return runner("apk list -I", "apk")
+
+	case strings.Contains(d, "ubuntu"):
+		return runner("apt list --installed", "apt")
+
+	default:
+		return fmt.Sprintf("sorry")
+	}
+}
+
+func runner(commands string, manager string) string {
+	out, _ := exec.Command("sh", "-c", commands+" | wc -l").Output()
+
+	return fmt.Sprintf("󰏓 %s packages (%s)", strings.TrimSpace(string(out)), manager)
+}

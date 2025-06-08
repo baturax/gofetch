@@ -1,9 +1,9 @@
-package mods
+package utils
 
 import "strings"
 
-func GetIcon() []string {
-	distro := strings.ToLower(getDistro())
+func GetAscii() []string {
+	distro := GetDistro()
 	switch {
 	case strings.Contains(distro, "arch"):
 		return []string{

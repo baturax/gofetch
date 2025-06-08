@@ -1,18 +1,11 @@
-package mods
+package utils
 
 import (
 	"fmt"
-
-	"github.com/shirou/gopsutil/v4/host"
 )
 
 func GetUptime() string {
-	h, err := host.Info()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	uptime := h.Uptime
+	uptime := getHost().Uptime
 
 	day := uptime / 86400
 	hour := (uptime % 86400) / 3600
