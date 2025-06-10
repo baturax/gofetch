@@ -10,7 +10,7 @@ func GetPackages() string {
 	d := GetDistro()
 
 	switch {
-	case strings.Contains(d, "arch"), strings.Contains(d, "cachy"):
+	case strings.Contains(d, "arch"), strings.Contains(d, "cachy"), strings.Contains(d, "artix"), strings.Contains(d, "artix"):
 		return runner("pacman -Qq", "pacman")
 
 	case strings.Contains(d, "void"):

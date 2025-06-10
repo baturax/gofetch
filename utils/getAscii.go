@@ -56,6 +56,16 @@ func GetAscii() []string {
 			"  \\.............../    ",
 			"   \\............./     ",
 		}
+	case strings.Contains(distro, "artix"):
+		return []string{
+			"      /\\         ",
+			"     /  \\        ",
+			"    /`'.,\\       ",
+			"   /     ',      ",
+			"  /      ,`\\     ",
+			" /   ,.'`.  \\    ",
+			"/.,'`     `'.\\   ",
+		}
 
 	default:
 		return []string{
