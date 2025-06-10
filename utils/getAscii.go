@@ -7,13 +7,13 @@ func GetAscii() []string {
 	switch {
 	case strings.Contains(distro, "arch"):
 		return []string{
-			"      /\\          ",
-			"     /  \\         ",
-			"    /    \\        ",
-			"   /      \\       ",
-			"  /   ,,   \\      ",
-			" /   |  |   \\     ",
-			"/_-''    ''-_\\    ",
+			"      /\\         ",
+			"     /  \\        ",
+			"    /    \\       ",
+			"   /      \\      ",
+			"  /   ,,   \\     ",
+			" /   |  |   \\    ",
+			"/_-''    ''-_\\   ",
 		}
 	case strings.Contains(distro, "void"):
 		return []string{
