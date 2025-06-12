@@ -27,13 +27,13 @@ func GetAscii() []string {
 		}
 	case strings.Contains(distro, "alpine"):
 		return []string{
-			"      /\\          ",
-			"     /  \\         ",
-			"    / /\\ \\  /\\    ",
-			"   / /  \\ \\/  \\   ",
-			"  / /    \\ \\ /\\   ",
-			" / / /|   \\ \\ \\   ",
-			"/_/ /_|    \\_\\_\\  ",
+			"      /\\         ",
+			"     /  \\        ",
+			"    / /\\ \\  /\\   ",
+			"   / /  \\ \\/  \\  ",
+			"  / /    \\ \\ /\\  ",
+			" / / /|   \\ \\ \\  ",
+			"/_/ /_|    \\_\\_\\ ",
 		}
 	case strings.Contains(distro, "ubuntu"):
 		return []string{
