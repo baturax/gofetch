@@ -22,6 +22,9 @@ func GetPackages() string {
 	case strings.Contains(d, "ubuntu"):
 		return runner("apt list --installed", "apt")
 
+	case strings.Contains(d, "kiss"):
+		return runner("kiss list", "kiss")
+
 	default:
 		return fmt.Sprintf("sorry")
 	}
