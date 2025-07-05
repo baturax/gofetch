@@ -12,6 +12,7 @@ func main() {
 
 func display() {
 	ascii := utils.GetAscii()
+	cat := cats()
 	mods := []string{
 		utils.GetUser(),
 		utils.GetSystem(),
@@ -25,22 +26,30 @@ func display() {
 
 	ri := rand.Intn(len(colors()))
 	re := colors()[ri]
-
-	maxLines := max(len(ascii), len(mods))
+	maxLines := max(len(ascii), len(mods), len(cat))
 
 	for i := range maxLines {
-		var asciiLine, modLine string
+		var asciiLine, modLine, catLine string
+
 		if i < len(ascii) {
 			asciiLine = ascii[i]
 		} else {
 			asciiLine = " "
 		}
+
 		if i < len(mods) {
 			modLine = mods[i]
 		} else {
 			modLine = ""
 		}
-		fmt.Printf("%-22s  %s\n", re+asciiLine, modLine)
+
+		if i < len(cat) {
+			catLine = cat[i]
+		} else {
+			catLine = ""
+		}
+
+		fmt.Printf("%-22s  %-35s %s\n", re+asciiLine, modLine, catLine)
 	}
 }
 
@@ -55,4 +64,22 @@ func colors() []string {
 		"\033[36m",
 		"\033[97m",
 	}
+}
+
+// https://www.asciiart.eu/animals/cats
+func cats() []string {
+	cats := [][]string{
+		{
+			"    |\\__/,|   (`\\",
+			"  _.|o o  |_   ) )",
+			"-(((---(((--------",
+		},
+		{
+			"      |\\      _,,,---,,_",
+			"ZZZzz /,`.-'`'    -.  ;-;;,_",
+			"     |,4-  ) )-,_. ,\\ (  `'-'",
+			"'---''(_/--'  `-'\\_)  ",
+		},
+	}
+	return cats[rand.Intn(len(cats))]
 }
