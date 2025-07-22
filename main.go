@@ -51,6 +51,7 @@ func display() {
 
 		fmt.Printf("%-22s  %-35s %s\n", re+asciiLine, modLine, catLine)
 	}
+	fmt.Printf("\033[0m")
 }
 
 func colors() []string {
