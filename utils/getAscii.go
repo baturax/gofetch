@@ -17,13 +17,13 @@ func GetAscii() []string {
 		}
 	case strings.Contains(distro, "void"):
 		return []string{
-			"    _______        ",
-			" _ \\______ -      ",
-			"| \\  ___  \\ |     ",
-			"| | /   \\ | |     ",
-			"| | \\___/ | |     ",
-			"| \\______ \\_|     ",
-			" -_______\\        ",
+			"    _______       ",
+			" _ \\______ -     ",
+			"| \\  ___  \\ |    ",
+			"| | /   \\ | |    ",
+			"| | \\___/ | |    ",
+			"| \\______ \\_|    ",
+			" -_______\\       ",
 		}
 	case strings.Contains(distro, "alpine"):
 		return []string{
