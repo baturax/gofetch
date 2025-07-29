@@ -26,7 +26,7 @@ func GetPackages() string {
 		return runner("kiss list", "kiss")
 
 	default:
-		return fmt.Sprintf("sorry")
+		return "sorry"
 	}
 }
 
