@@ -23,9 +23,9 @@ func display() {
 		utils.GetDesktop(),
 		utils.GetPackages(),
 	}
-
-	ri := rand.Intn(len(colors()))
-	re := colors()[ri]
+	cols := colors()
+	ri := rand.Intn(len(cols))
+	re := cols[ri]
 	maxLines := max(len(ascii), len(mods), len(cat))
 
 	for i := range maxLines {
@@ -51,7 +51,7 @@ func display() {
 
 		fmt.Printf("%-22s  %-35s %s\n", re+asciiLine, modLine, catLine)
 	}
-	fmt.Printf("\033[0m")
+	defer fmt.Printf("\033[0m")
 }
 
 func colors() []string {
