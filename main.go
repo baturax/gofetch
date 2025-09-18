@@ -22,6 +22,7 @@ func display() {
 		utils.GetShell(),
 		utils.GetDesktop(),
 		utils.GetPackages(),
+		utils.GetBattery(),
 	}
 	cols := colors()
 	ri := rand.Intn(len(cols))
