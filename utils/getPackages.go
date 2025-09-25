@@ -14,7 +14,7 @@ func GetPackages() string {
 		return runner("pacman -Qq", "pacman")
 
 	case strings.Contains(d, "void"):
-		return runner("xbps-query", "xbps")
+		return runner("xbps-query -l", "xbps")
 
 	case strings.Contains(d, "alpine") || strings.Contains(d, "chimera"):
 		return runner("apk list -I", "apk")
