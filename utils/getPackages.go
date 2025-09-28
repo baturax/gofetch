@@ -25,6 +25,9 @@ func GetPackages() string {
 	case strings.Contains(d, "kiss"):
 		return runner("kiss list", "kiss")
 
+	case strings.Contains(d, "fedora"):
+		return runner("dnf list --installed", "dnf")
+
 	default:
 		return "sorry"
 	}
