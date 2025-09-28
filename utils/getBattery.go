@@ -7,7 +7,6 @@ import (
 	"strings"
 )
 
-
 func GetBattery() string {
 	batteryFiles, err := filepath.Glob("/sys/class/power_supply/BAT*/capacity")
 	if err != nil {
@@ -36,7 +35,7 @@ func GetBattery() string {
 			status = strings.TrimSpace(string(data))
 		}
 
-		builder.WriteString(fmt.Sprintf(" %s: %s%% (%s)\n", filepath.Base(dir), capacity, status))
+		builder.WriteString(fmt.Sprintf("  %s: %s%% (%s)\n", filepath.Base(dir), capacity, status))
 	}
 
 	return builder.String()
