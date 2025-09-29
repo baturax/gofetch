@@ -7,34 +7,41 @@ import (
 )
 
 func GetPackages() string {
-	d := GetDistro()
+	managers := map[string]string{
+		"pacman":  "pacman -Qq",
+		"xbps":    "xbps-query -l",
+		"apk":     "apk list -I",
+		"apt":     "apt list --installed",
+		"kiss":    "kiss list",
+		"rpm":     "rpm -qa",
+		"flatpak": "flatpak list",
+	}
 
-	switch {
-	case strings.Contains(d, "arch"), strings.Contains(d, "cachy"), strings.Contains(d, "artix"), strings.Contains(d, "artix"):
-		return runner("pacman -Qq", "pacman")
+	results := []string{}
 
-	case strings.Contains(d, "void"):
-		return runner("xbps-query -l", "xbps")
+	for mgr, cmd := range managers {
+		if isExecutable(mgr) {
+			count := getPackageCount(cmd)
+			results = append(results, fmt.Sprintf("󰏓 %s packages (%s)", count, mgr))
+		}
+	}
 
-	case strings.Contains(d, "alpine") || strings.Contains(d, "chimera"):
-		return runner("apk list -I", "apk")
-
-	case strings.Contains(d, "ubuntu"):
-		return runner("apt list --installed", "apt")
-
-	case strings.Contains(d, "kiss"):
-		return runner("kiss list", "kiss")
-
-	case strings.Contains(d, "fedora"):
-		return runner("dnf list --installed", "dnf")
-
-	default:
+	if len(results) == 0 {
 		return "sorry"
 	}
+
+	return strings.Join(results, " | ")
 }
 
-func runner(commands string, manager string) string {
-	out, _ := exec.Command("sh", "-c", commands+" | wc -l").Output()
+func getPackageCount(cmd string) string {
+	out, err := exec.Command("sh", "-c", cmd+" | wc -l").Output()
+	if err != nil {
+		return "0"
+	}
+	return strings.TrimSpace(string(out))
+}
 
-	return fmt.Sprintf("󰏓 %s packages (%s)", strings.TrimSpace(string(out)), manager)
+func isExecutable(cmd string) bool {
+	_, err := exec.LookPath(cmd)
+	return err == nil
 }
