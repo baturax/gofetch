@@ -5,5 +5,5 @@ import (
 )
 
 func GetSystem() string {
-	return fmt.Sprintf("  %v %v %v", getHost().Platform, getHost().OS, getHost().KernelArch)
+	return fmt.Sprintf(" %v %v %v", getHost().Platform, getHost().OS, getHost().KernelArch)
 }

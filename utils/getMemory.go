@@ -13,5 +13,5 @@ func GetMemory() string {
 	usedMem := memory.Used / 1048576
 	totalMem := memory.Total / 1048576
 
-	return fmt.Sprintf("  %v / %v", usedMem, totalMem)
+	return fmt.Sprintf(" %v / %v", usedMem, totalMem)
 }

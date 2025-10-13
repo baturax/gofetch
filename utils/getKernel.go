@@ -5,5 +5,5 @@ import (
 )
 
 func GetKernel() string {
-	return fmt.Sprintf("  %v %v", getHost().Platform, getHost().KernelVersion)
+	return fmt.Sprintf(" %v %v", getHost().Platform, getHost().KernelVersion)
 }

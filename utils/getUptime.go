@@ -11,5 +11,5 @@ func GetUptime() string {
 	hour := (uptime % 86400) / 3600
 	minute := (uptime % 3600) / 60
 
-	return fmt.Sprintf("  %v days, %v hours, %v minutes", day, hour, minute)
+	return fmt.Sprintf(" %v days, %v hours, %v minutes", day, hour, minute)
 }
